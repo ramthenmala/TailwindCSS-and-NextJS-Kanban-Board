@@ -5,10 +5,8 @@ export default function Home() {
   return (
     <>
       <Layout>
-        <div className="p-6">
-          <div className="">
-            <Board />
-          </div>
+        <div className="p-5">
+          <Board />
         </div>
       </Layout>
     </>

@@ -1,12 +1,22 @@
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useState, useEffect } from "react";
-import { DotsVerticalIcon } from "@heroicons/react/outline";
+import { DotsVerticalIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import CardItem from "./Card";
 import BoardData from "../data/boarddata.json";
+
+function createGuidId() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 
 function Board() {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState(BoardData);
+  const [showForm, setShowForm] = useState(false);
+  const [selectedBoard, setSelectedBoard] = useState(0);
 
   useEffect(() => {
     if (process.browser) {
@@ -31,14 +41,44 @@ function Board() {
     setBoardData(newBoardData);
   };
 
+  const addTaskHandler = (e) => {
+    e.preventDefault();
+    setShowForm(true);
+  };
+
+  const onTextAreaKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      //Enter
+      const val = e.target.value;
+      if (val.length === 0) {
+        setShowForm(false);
+      } else {
+        const boardId = e.target.attributes["data-id"].value;
+        const item = {
+          id: createGuidId(),
+          title: val,
+          priority: 0,
+          chat: 0,
+          attachment: 0,
+          assignees: [],
+        };
+        let newBoardData = boardData;
+        newBoardData[boardId].items.push(item);
+        setBoardData(newBoardData);
+        setShowForm(false);
+        e.target.value = "";
+      }
+    }
+  };
+
   return (
     <>
       {ready && (
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="grid grid-cols-4 gap-2">
-            {BoardData.map((board, index) => (
-              <div key={index} className="bg-white shadow-md rounded-md ">
-                <Droppable droppableId={index.toString()}>
+            {BoardData.map((board, bIndex) => (
+              <div key={bIndex} className="bg-white shadow-md rounded-md ">
+                <Droppable droppableId={bIndex.toString()}>
                   {(provider) => (
                     <div {...provider.droppableProps} ref={provider.innerRef}>
                       <h4 className="flex justify-between items-center p-2">
@@ -57,6 +97,34 @@ function Board() {
                             />
                           );
                         })}
+
+                      {showForm && selectedBoard === bIndex ? (
+                        <div className="flex flex-col mx-2 mt-3 text-sm ">
+                          <textarea
+                            rows={3}
+                            placeholder="Add Task"
+                            onKeyPress={(e) => onTextAreaKeyPress}
+                            data-id={bIndex}
+                            onKeyDown={(e) => onTextAreaKeyPress(e)}
+                            className="flex border border-gray-100 rounded-sm p-2 outline-none"
+                          />
+                          <p className="text-xs text-gray-500 mt-1 italic">
+                            Press Enter to send the data
+                          </p>
+                        </div>
+                      ) : (
+                        <button
+                          type="button"
+                          className="flex w-full justify-center items-center my-3 space-x-2 text-sm text-gray-600 cursor-pointer hover:text-gray-900 transition"
+                          onClick={() => {
+                            setSelectedBoard(bIndex);
+                            setShowForm(true);
+                          }}
+                        >
+                          <span>Add Task</span>
+                          <PlusCircleIcon className="w-5 h-5 " />
+                        </button>
+                      )}
                     </div>
                   )}
                 </Droppable>

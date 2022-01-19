@@ -20,7 +20,7 @@ function Sidebar(props) {
       </div>
 
       <div className="divide-y px-3 flex flex-col">
-        <div className="">
+        <div className="pb-5">
           <div className="flex items-center space-x-2 rounded-md text-gray-600 px-2 py-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 transition">
             <div className="">
               <LightningBoltIcon className="w-5 h-5 " />
@@ -36,7 +36,7 @@ function Sidebar(props) {
           </div>
         </div>
 
-        <div>
+        <div className="pt-5">
           <div className="flex items-center space-x-2 rounded-md text-gray-600 px-2 py-2 cursor-pointer hover:bg-indigo-100 hover:text-indigo-900 transition">
             <div className="">
               <HomeIcon className="w-5 h-5 " />

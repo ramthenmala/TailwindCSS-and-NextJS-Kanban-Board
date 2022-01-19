@@ -36,25 +36,6 @@ function CardItem({ data, index }) {
             {data.title}
           </h2>
           <div className="flex items-center justify-between">
-            <div className="flex items-center justify-between -space-x-3">
-              {data.assignees &&
-                data.assignees.map((imgurl, iIMGIndex) => (
-                  <div
-                    key={iIMGIndex}
-                    className="overflow-hidden border-white border-2 z-10 rounded-full w-8 h-8 cursor-pointer"
-                  >
-                    <Image
-                      src={imgurl.avt}
-                      alt="img"
-                      objectFit="cover"
-                      className="rounded-full overflow-hidden"
-                      width="30"
-                      height="30"
-                    />
-                  </div>
-                ))}
-            </div>
-
             <div className="flex space-x-3 text-gray-600 items-center justify-between">
               {data.chat > 0 && (
                 <span className="flex items-center justify-between space-x-1 text-sm cursor-pointer">
@@ -69,7 +50,24 @@ function CardItem({ data, index }) {
                   <span>{data.attachment}</span>
                 </span>
               )}
-
+            </div>
+            <div className="flex items-center justify-between  overflow-hidden">
+              {data.assignees &&
+                data.assignees.map((imgurl, iIMGIndex) => (
+                  <div
+                    key={iIMGIndex}
+                    className="overflow-hidden -space-x-3 border-white border-2 rounded-full w-8 h-8 cursor-pointer relative"
+                  >
+                    <Image
+                      src={imgurl.avt}
+                      alt="img"
+                      objectFit="cover"
+                      className="rounded-full overflow-hidden"
+                      width="30"
+                      height="30"
+                    />
+                  </div>
+                ))}
               <span className="flex items-center justify-between space-x-1 text-sm cursor-pointer">
                 <PlusCircleIcon className="w-6 h-6 text-gray-400" />
               </span>
