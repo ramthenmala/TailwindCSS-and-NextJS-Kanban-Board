@@ -75,7 +75,7 @@ function Board() {
     <>
       {ready && (
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
             {BoardData.map((board, bIndex) => (
               <div key={bIndex} className="bg-white shadow-md rounded-md ">
                 <Droppable droppableId={bIndex.toString()}>

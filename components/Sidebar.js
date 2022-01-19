@@ -11,7 +11,7 @@ import {
 
 function Sidebar(props) {
   return (
-    <div className="inset-y-0 w-72 fixed left-0 bg-white shadow-md">
+    <div className="inset-y-0 w-72 -left-72 fixed md:left-0 bg-white shadow-md">
       <div className="flex items-center space-x-3  mb-4 py-4 px-3">
         <span className="w-10 h-10 bg-indigo-500  text-3xl font-medium text-white rounded-lg flex items-center justify-center">
           K
