@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Theme Preview
+
+![nextkanban-netlify-app](https://user-images.githubusercontent.com/4328468/150097860-ecac51fd-5eba-4e0f-9a4d-a0ffed1e97f2.png)
+
+
 ## Getting Started
 
 First, run the development server:
